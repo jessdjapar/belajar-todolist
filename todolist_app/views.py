@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 #from django.db import connection
 import csv
+from django.contrib import messages
 
 # Create your views here.
 from .models import *
@@ -56,3 +57,18 @@ def export(request):
     
     response['Content-Disposition'] = 'attachment; filename="Task.csv"'
     return response
+
+def import_csv(request):
+    res = HttpResponse("OK")
+    print(res)
+    template = "importcsv.html"
+    if request.method == "GET":
+        return render(request, template)
+    
+    csv_file = request.FILES['file']
+    
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    return render(request, 'todolist_app/importcsv.html')

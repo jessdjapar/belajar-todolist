@@ -61,6 +61,7 @@ crossorigin="anonymous">
     </div>
     {% endfor %}
 	<form action="/export_csv">
-		<button id="stat-btn" class="btn btn-sm btn-info">Import CSV</button>
+		<button id="stat-btn" class="btn btn-sm btn-info">Export CSV</button>
 	</form>
+	<a class="btn btn-sm btn-info" href="{% url 'import-csv' %}">Import CSV</a>
 </div>

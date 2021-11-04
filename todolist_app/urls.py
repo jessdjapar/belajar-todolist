@@ -6,5 +6,6 @@ urlpatterns = [
     path('update_task/<str:pk>/', views.updateTask, name='update-Task'),
     path('delete/<str:pk>/', views.deleteTask, name='delete-Task'),
     #path('output/<str:pk>/', views.export_takslist, name= 'ex_tasklist'),
-    path('export_csv', views.export)
+    path('export_csv', views.export),
+    path('importcsv', views.import_csv, name='import-csv')
 ]
