@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+#from django.db import connection
+import csv
 
 # Create your views here.
 from .models import *
@@ -43,3 +45,14 @@ def deleteTask(request, pk):
 
     context = {'item':item}
     return render(request, 'todolist_app/delete.html', context)
+
+def export(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['title', 'complete', 'created'])
+
+    for t in Task.objects.all().values_list('title', 'complete','created'):
+        writer.writerow(t)
+    
+    response['Content-Disposition'] = 'attachment; filename="Task.csv"'
+    return response
