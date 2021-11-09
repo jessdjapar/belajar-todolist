@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 
+#import django_tables2 as tables
+
 from .models import *
 
 class TaskForm(forms.ModelForm):

@@ -1,12 +1,29 @@
-<h3>Import Form</h3>
-{% csrf_token %}
-<form method="POST" action="">
-    {% csrf_token %}
-    <label for="importcsv">Choose CSV file:</label>
-
-    <input type="file"
-       id="importcsv" name="importcsv"
-       accept="text/csv">
-    <a href="{% url 'list' %}">Cancel</a>
-    <input type="submit" name="Import Task">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Import CSV</title>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+<!--                | means OR operator-->
+                <strong>{{message|safe}}</strong>
+            </div>
+        {% endfor %}
+    {% else %}
+    {{order}}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file1"> Upload a CSV file</label>
+        <input type="file" id="file1" name="file">
+        <small>Only accepts CSV files</small>
+        <button type="submit">Upload</button>
+    </form>
+    {% endif %}
+    {% for profile in profiles %}
+    {{profile.name}}
+    {% endfor %}
+</body>
+</html>
