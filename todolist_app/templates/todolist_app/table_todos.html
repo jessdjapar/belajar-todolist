@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <h1>To Do List</h1>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        {{form.title}}
+        <input class="btn btn-info" type="submit" name="Create Task">
+    </form>
+    <!--<a class="btn" href="#">Export CSV</a>  |  -->
+    <form action="/export_csv">
+		<button class="btn-sm btn-secondary">Export CSV</button>
+	</form>
+    <form>
+        <a class="btn" href="{% url 'import-csv' %}">Import CSV</a>
+    </form>
     <table>
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Complete</th>
-                <th>Created</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -14,7 +26,8 @@
             <tr>
                 <td>{{ i.title }}</td>
                 <td>{{ i.complete }}</td>
-                <td>{{ i.created }}</td>
+                <td><a class="btn" href="{% url 'update-Task' i.id %}">Update</a>
+                    <a class="btn" href="{% url 'delete-Task' i.id %}">Delete</a> </td>
             </tr>
             {% endfor %}
         </tbody>
