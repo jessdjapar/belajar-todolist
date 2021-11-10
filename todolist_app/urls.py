@@ -14,5 +14,6 @@ urlpatterns = [
     path('importcsv/', views.import_csv, name='import-csv'),
     path('admin/', admin.site.urls),
     path('export_json', views.export_json, name='export-json'),
-    path('', views.tabletodo, name='table-todo')
+    path('', views.tabletodo, name='table-todo'),
+    path('export_excel', views.export_excel, name='export-excel')
 ]

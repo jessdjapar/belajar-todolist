@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 import json
 
+import xlwt
+
 # Create your views here.
 from .models import *
 from .forms import *
@@ -122,3 +124,29 @@ def tabletodo(request):
 
     context = {'data': tasks, 'form':form}
     return render(request, 'todolist_app/table_todos.html', context)
+
+
+def export_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Task.xlxs"'
+    wb = xlwt.Workbook(encoding='UTF-8')
+    ws = wb.add_sheet('Task')
+    row_num = 0
+    font_Style = xlwt.XFStyle()
+    font_Style.font.bold = True
+    columns = ['Title', 'Complete', 'Created']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_Style)
+    font_Style = xlwt.XFStyle()
+    rows = Task.objects.filter(title=request.user).values_list('complete', 'created')
+
+    for row in rows:
+        row_num=row_num+1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_Style)
+    wb.save(response)
+
+    return response
+    
+    return response
