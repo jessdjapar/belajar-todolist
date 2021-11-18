@@ -3,8 +3,10 @@ from . import views
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
+    path('registration/login', LoginView.as_view(), name='login-user'),
     path('list', views.index, name='list'),
     path('update_task/<str:pk>/', views.updateTask, name='update-Task'),
     path('delete/<str:pk>/', views.deleteTask, name='delete-Task'),

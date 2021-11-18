@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'todolist_app',
+    #'login_example'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'todo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates/todolist_app")],
+        'DIRS': [os.path.join(BASE_DIR, "todolist_app/templates/todolist_app")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

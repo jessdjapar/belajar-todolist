@@ -13,6 +13,9 @@ import xlwt
 from .models import *
 from .forms import *
 
+#Import login logout
+#from django.contrib.auth.views import LoginView
+
 def index(request):
     tasks = Task.objects.all()
     form = TaskForm()
