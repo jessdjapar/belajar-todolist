@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <h1>To Do List</h1>
-    <form method="POST" action="/">
+    <!--<form method="POST" action="/">
         {% csrf_token %}
         {{form.title}}
         <input class="btn btn-info" type="submit" name="Create Task">
-    </form>
+    </form>-->
     <!--<a class="btn" href="#">Export CSV</a>  |  -->
+    <form>
+        <a class="btn" href="{% url 'new-Task' %}">New Task</a>
+    </form>
     <form action="/export_csv">
 		<button class="btn">Export CSV</button>
 	</form>
@@ -18,6 +22,7 @@
             <tr>
                 <th>Title</th>
                 <th>Complete</th>
+                <th>Image</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -26,6 +31,13 @@
             <tr>
                 <td>{{ i.title }}</td>
                 <td>{{ i.complete }}</td>
+                <td>{% if i.img == '' %}
+                    No Image</td>
+                    {% elif not i.img %}
+                    No Image</td>
+                    {% else %}
+                    <img src="/media/{{ i.img }}" class="img-responsive" style="width: 50%"></img></td>
+                    {% endif %}
                 <td><a class="btn" href="{% url 'update-Task' i.id %}">Update</a>
                     <a class="btn" href="{% url 'delete-Task' i.id %}">Delete</a> </td>
             </tr>

@@ -113,17 +113,19 @@ def export_json(request):
     return JsonResponse(jsondata, safe=False, json_dumps_params={'indent': 2})
 
 def tabletodo(request):
-    tasks = Task.objects.all()
-    form = TaskForm()
+    if request.method == 'GET':
+        tasks = Task.objects.all()
+        context = {'data': tasks}
+        return render(request, 'todolist_app/table_todos.html', context)
+    #form = TaskForm()
 
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('/')
+    #if request.method == 'POST':
+    #    form = TaskForm(request.POST)
+    #    if form.is_valid():
+    #        form.save()
+    #    return redirect('/')
 
-    context = {'data': tasks, 'form':form}
-    return render(request, 'todolist_app/table_todos.html', context)
+    
 
 
 def export_excel(request):
@@ -149,4 +151,13 @@ def export_excel(request):
 
     return response
     
-    return response
+def new_Task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return redirect('/')
+    else:
+        form = TaskForm()
+    #url_img = format_html('')
+    return render(request, 'todolist_app/new_task.html', {'form': form})
