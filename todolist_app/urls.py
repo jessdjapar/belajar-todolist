@@ -1,12 +1,15 @@
 from django.urls import path
 from . import views
+from .views import CustomloginView
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
-    path('registration/login', LoginView.as_view(), name='login-user'),
+    path('login/', CustomloginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('list', views.index, name='list'),
     path('update_task/<str:pk>/', views.updateTask, name='update-Task'),
     path('delete/<str:pk>/', views.deleteTask, name='delete-Task'),

@@ -13,8 +13,17 @@ import xlwt
 from .models import *
 from .forms import *
 
-#Import login logout
-#from django.contrib.auth.views import LoginView
+#Import login
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+
+class CustomloginView(LoginView):
+    template_name = 'todolist_app/login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('table-todo')
 
 def index(request):
     tasks = Task.objects.all()
